@@ -1,0 +1,571 @@
+<!doctype html>
+
+<!--
+
+    Welcome to the light side of the source, young padawan.
+
+    One step closer to learn something interesting you are...
+
+                               ____
+                            _.' :  `._
+                        .-.'`.  ;   .'`.-.
+               __      / : ___\ ;  /___ ; \      __
+             ,'_ ""--.:__;".-.";: :".-.":__;.--"" _`,
+             :' `.t""--.. '<@.`;_  ',@:` ..--""j.' `;
+                  `:-.._J '-.-'L__ `-- ' L_..-;'
+                    "-.__ ;  .-"  "-.  : __.-"
+                        L ' /.------.\ ' J
+                         "-.   "--"   .-"
+                        __.l"-:_JL_;-";.__
+                     .-j/'.;  ;""""  / .'\"-.
+                   .' /:`. "-.:     .-" .';  `.
+                .-"  / ;  "-. "-..-" .-"  :    "-.
+             .+"-.  : :      "-.__.-"      ;-._   \
+             ; \  `.; ;                    : : "+. ;
+             :  ;   ; ;                    : ;  : \:
+             ;  :   ; :                    ;:   ;  :
+            : \  ;  :  ;                  : ;  /  ::
+            ;  ; :   ; :                  ;   :   ;:
+            :  :  ;  :  ;                : :  ;  : ;
+            ;\    :   ; :                ; ;     ; ;
+            : `."-;   :  ;              :  ;    /  ;
+             ;    -:   ; :              ;  : .-"   :
+             :\     \  :  ;            : \.-"      :
+              ;`.    \  ; :            ;.'_..--  / ;
+              :  "-.  "-:  ;          :/."      .'  :
+               \         \ :          ;/  __        :
+                \       .-`.\        /t-""  ":-+.   :
+                 `.  .-"    `l    __/ /`. :  ; ; \  ;
+                   \   .-" .-"-.-"  .' .'j \  /   ;/
+                    \ / .-"   /.     .'.' ;_:'    ;
+                     :-""-.`./-.'     /    `.___.'
+                           \ `t  ._  /
+                            "-.t-._:'
+
+-->
+
+<!--
+
+    So you'd like to know how to use impress.js?
+
+    You've made the first, very important step -- you're reading the source code.
+    And that's how impress.js presentations are built -- with HTML and CSS code.
+
+    Believe me, you need quite decent HTML and CSS skills to be able to use impress.js effectively.
+    And what is even more important, you need to be a designer, too, because there are no default
+    styles for impress.js presentations, there is no default or automatic layout for them.
+
+    You need to design and build it by hand.
+
+    So...
+
+    Would you still like to know how to use impress.js?
+
+-->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>HTML5 | 史矛革之战 @mpr0xy</title>
+
+    <meta name="description" content="HTML5 必会爆发" />
+    <meta name="author" content="mpr0xy" />
+
+<!--     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" /> -->
+
+    <!--
+
+        Impress.js doesn't depend on any external stylesheet. Script adds all styles it needs for
+        presentation to work.
+
+        This style below contains styles only for demo presentation. Browse it to see how impress.js
+        classes are used to style presentation steps, or how to apply fallback styles, but I don't want
+        you to use them directly in your presentation.
+
+        Be creative, build your own. We don't really want all impress.js presentations to look the same,
+        do we?
+
+        When creating your own presentation get rid of this file. Start from scratch, it's fun!
+
+    -->
+    <link href="css/impress-demo.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<!--
+
+    Body element is used by impress.js to set some useful class names, that will allow you to detect
+    the support and state of the presentation in CSS or other scripts.
+
+    First very useful class name is `impress-not-supported`. This class means, that browser doesn't
+    support features required by impress.js, so you should apply some fallback styles in your CSS.
+    It's not necessary to add it manually on this element. If the script detects that browser is not
+    good enough it will add this class, but keeping it in HTML means that users without JavaScript
+    will also get fallback styles.
+
+    When impress.js script detects that browser supports all required features, this class name will
+    be removed.
+
+    The class name on body element also depends on currently active presentation step. More details about
+    it can be found later, when `hint` element is being described.
+
+-->
+<body class="impress-not-supported"  onload="canvasInit();">
+
+<!--
+    For example this fallback message is only visible when there is `impress-not-supported` class on body.
+-->
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!--
+
+    Now that's the core element used by impress.js.
+
+    That's the wrapper for your presentation steps. In this element all the impress.js magic happens.
+    It doesn't have to be a `<div>`. Only `id` is important here as that's how the script find it.
+
+    You probably won't need it now, but there are some configuration options that can be set on this element.
+
+    To change the duration of the transition between slides use `data-transition-duration="2000"` giving it
+    a number of ms. It defaults to 1000 (1s).
+
+    You can also control the perspective with `data-perspective="500"` giving it a number of pixels.
+    It defaults to 1000. You can set it to 0 if you don't want any 3D effects.
+    If you are willing to change this value make sure you understand how CSS perspective works:
+    https://developer.mozilla.org/en/CSS/perspective
+
+    But as I said, you won't need it for now, so don't worry - there are some simple but interesing things
+    right around the corner of this tag ;)
+
+-->
+<div id="impress">
+
+    <!--
+
+        Here is where interesting thing start to happen.
+
+        Each step of the presentation should be an element inside the `#impress` with a class name
+        of `step`. These step elements are positioned, rotated and scaled by impress.js, and
+        the 'camera' shows them on each step of the presentation.
+
+        Positioning information is passed through data attributes.
+
+        In the example below we only specify x and y position of the step element with `data-x="-1000"`
+        and `data-y="-1500` attributes. This means that **the center** of the element (yes, the center)
+        will be positioned in point x = -1000px and y = -1500px of the presentation 'canvas'.
+
+        It will not be rotated or scaled.
+
+    -->
+    <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
+        <q style="margin-top: 10px"><b>HTML5</b> 史矛革之战</q>
+        </br>
+        <img src="./image/hobbit.jpg"/>
+    </div>
+
+    <!--
+
+        The `id` attribute of the step element is used to identify it in the URL, but it's optional.
+        If it is not defined, it will get a default value of `step-N` where N is a number of slide.
+
+        So in the example below it'll be `step-2`.
+
+        The hash part of the url when this step is active will be `#/step-2`.
+
+        You can also use `#step-2` in a link, to point directly to this particular step.
+
+        Please note, that while `#/step-2` (with slash) would also work in a link it's not recommended.
+        Using classic `id`-based links like `#step-2` makes these links usable also in fallback mode.
+
+    -->
+    <style type="text/css">
+        .modern-browsers img {
+            width: 180px;
+        }
+    </style>
+    <div class="step slide" data-x="0" data-y="-1500">
+        <q style="margin-top:20px; font-size: 40px;">W3C(World Wide Web Consortium)
+        </br>
+        <img src="./image/bernerslee.jpg" />
+        </br>WHATWG(Web Hypertext Application Technology Working Group)</q>
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="-1500">
+        <q style="margin-top:20px;">正在进行，却已经应用</q>
+        <q style="margin-top:10px;margin-bottom:50px;">现代浏览器必备技能</q>
+        <p class="modern-browsers">
+            <img src="./image/Chrome.png"> <img src="./image/Firefox.png"> <img src="./image/Safari.png">
+             <img src="./image/Opera.png">
+        </p></br>
+        <div>
+            <img style="width:150px;opacity: 0.3;" src="./image/ie.jpg"/>
+        </div>
+    </div>
+
+    <!--
+
+        This is an example of step element being scaled.
+
+        Again, we use a `data-` attribute, this time it's `data-scale="4"`, so it means that this
+        element will be 4 times larger than the others.
+        From presentation and transitions point of view it means, that it will have to be scaled
+        down (4 times) to make it back to it's correct size.
+
+    -->
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+        <span class="try" style="margin-top: 10px; margin-left:260px; font-size: 40px; ">2008年1月22日</span>
+        </br>
+        <h4>HTML5</br>
+            A vocabulary and associated APIs for HTML and XHTML</br>
+            <i>W3C Proposed Recommendation</i> <b>16 September 2014</b>
+        </h4>
+    </div>
+
+    <!--
+
+        This element introduces rotation.
+
+        Notation shouldn't be a surprise. We use `data-rotate="90"` attribute, meaning that this
+        element should be rotated by 90 degrees clockwise.
+
+    -->
+    <div id="html5_charts" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+        <img src="./image/html5_charts.png" width="900px"/>
+    </div>
+
+    <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
+        <p style="position: relative; top:-100px;">It’s not <b>one</b> big thing!</p>
+    </div>
+
+    <!--
+
+        And now it gets really exiting! We move into third dimension!
+
+        Along with `data-x` and `data-y`, you can define the position on third (Z) axis, with
+        `data-z`. In the example below we use `data-z="-3000"` meaning that element should be
+        positioned far away from us (by 3000px).
+
+    -->
+    <div id="getstart" style="font-size: 56px;text-align: center;" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+        <p style="">It’s easy to get started</p>
+        <p style=""><img src="./image/html5_getstart.png"/></p>
+        <img src="./image/PageStructureOld.png" />
+        <img src="./image/PageStructureNew.png" />
+    </div>
+
+    <!--
+
+        This step here doesn't introduce anything new when it comes to data attributes, but you
+        should notice in the demo that some words of this text are being animated.
+        It's a very basic CSS transition that is applied to the elements when this step element is
+        reached.
+
+        At the very beginning of the presentation all step elements are given the class of `future`.
+        It means that they haven't been visited yet.
+
+        When the presentation moves to given step `future` is changed to `present` class name.
+        That's how animation on this step works - text moves when the step has `present` class.
+
+        Finally when the step is left the `present` class is removed from the element and `past`
+        class is added.
+
+        So basically every step element has one of three classes: `future`, `present` and `past`.
+        Only one current step has the `present` class.
+
+    -->
+    <div id="form" class="step slide" data-x="3500" data-y="-850" data-rotate="270" data-scale="6">
+        <form style="">
+            <input type="email" style="display:inline-block;padding: 10px; width:600px;height=60px;font-size: 40px;line-height: 40px;vtical-align:middle;border: 2px solid #3385ff;" multiple required autofocus placeholder="sample@sample.com" /></br>
+            <input type="submit" style="display:inline-block; margin-top: 10px; height: 60px;background-color: #6e6e6e; width:100px; color:#fff; font-size: 40px;" />
+        </form>
+        </br>
+        <audio id="sampleAudio" controls>
+            <source src="./Let_It_Go.mp3">
+            Your browser does not support the audio element.
+        </audio>
+        </br>
+        </br>
+        <div id="mapView" class="mapDimension1"></div>
+
+        <script type="text/javascript">
+            // navigator.geolocation.getCurrentPosition
+            function showMap() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showMapLocation, handleLocationError, {
+                        timeout: 1000000,
+                        maximumAge: 1000,
+                        enableHighAccuracy: true
+                    });
+                }
+            }
+
+            // create an object literal to hold map properties and create a "map" object & "marker" objects
+            function showMapLocation(position) {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                document.getElementById("mapView").innerHTML = "纬度：" + position.coords.latitude + "</br>" +
+                "经度：" + position.coords.longitude;
+            }
+            function handleLocationError(error) {
+                document.getElementById("mapView").innerHTML = error.message;
+                console.log(error);
+            }
+            showMap();
+        </script>
+
+    </div>
+
+    <div id="svg" class="step" data-x="6700" data-y="-300" data-scale="6">
+        <object data="http://svg.kvalitne.cz/worldlandmarks/worldlandmarks.svg" width="1080px" height="800px" type="image/svg+xml">
+            <img src="http://svg.kvalitne.cz/worldlandmarks/worldlandmarks.svg" alt="PNG image of standAlone.svg" />
+        </object>
+    </div>
+
+    <div id="canvas" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4">
+        <!-- http://msdn.microsoft.com/zh-cn/library/gg193983 -->
+        <style type="text/css" media="screen">
+            path:hover {fill:yellow;}
+        </style>
+        <svg width="400" height="200">
+            <g  transform="translate(0,-400)">
+                <path fill="blue" onclick="alert('I am Hawaii');"
+                    d="m 233.08751,519.30948 1.93993,-3.55655 2.26326,-0.32332 0.32332,0.8083 -2.1016,3.07157 -2.42491,0 z m 10.18466,-3.71821 6.14313,2.58657 2.10159,-0.32332 1.61661,-3.87987 -0.64664,-3.39488 -4.2032,-0.48498 -4.04153,1.77827 -0.96996,3.71821 z m 30.71563,10.023 3.7182,5.49647 2.42492,-0.32332 1.13163,-0.48498 1.45495,1.29329 3.71821,-0.16166 0.96997,-1.45495 -2.90991,-1.77827 -1.93993,-3.71822 -2.1016,-3.55654 -5.8198,2.9099 -0.64664,1.77828 z m 20.20765,8.89137 1.29329,-1.93994 4.68817,0.96996 0.64665,-0.48498 6.14312,0.64664 -0.32332,1.2933 -2.58658,1.45494 -4.36485,-0.32332 -5.49648,-1.6166 z m 5.33482,5.17315 1.93994,3.87987 3.07155,-1.13163 0.32333,-1.61662 -1.61661,-2.10159 -3.71821,-0.32332 0,1.29329 z m 6.95143,-1.13163 2.26326,-2.9099 4.68817,2.42492 4.36485,1.13163 4.36486,2.74824 0,1.93993 -3.55654,1.77828 -4.84985,0.96996 -2.42491,-1.45495 -4.84984,-6.62811 z m 16.65111,15.51947 1.61661,-1.29328 3.39489,1.61662 7.59807,3.55654 3.39489,2.10159 1.6166,2.42492 1.93994,4.36485 4.04153,2.58658 -0.32332,1.2933 -3.87987,3.23322 -4.20319,1.45495 -1.45495,-0.64664 -3.07157,1.77826 -2.42491,3.23323 -2.26326,2.9099 -1.77828,-0.16166 -3.55654,-2.58658 -0.32332,-4.52651 0.64664,-2.42492 -1.61661,-5.65814 -2.1016,-1.77828 -0.16166,-2.58658 2.26326,-0.96996 2.1016,-3.07156 0.48498,-0.96997 -1.61661,-1.77828 -0.32332,-2.1016 z"
+                    id="HI"
+                />
+                <path fill="red" onclick="alert('I am Alaska');"
+                    d="m 158.07671,453.67502 -0.32332,85.35713 1.6166,0.96996 3.07157,0.16166 1.45494,-1.13162 2.58658,0 0.16167,2.9099 6.95143,6.78977 0.48499,2.58658 3.39488,-1.93994 0.64665,-0.16166 0.32332,-3.07156 1.45494,-1.61661 1.13164,-0.16166 1.93993,-1.45496 3.07156,2.1016 0.64665,2.90991 1.93993,1.13162 1.13163,2.42492 3.87988,1.77827 3.39488,5.98147 2.74823,3.87986 2.26326,2.74825 1.45496,3.7182 5.01149,1.77828 5.17317,2.10159 0.96996,4.36486 0.48498,3.07156 -0.96996,3.39489 -1.77828,2.26325 -1.61661,-0.8083 -1.45495,-3.07157 -2.74824,-1.45494 -1.77827,-1.13164 -0.80831,0.80831 1.45495,2.74825 0.16166,3.7182 -1.13163,0.48498 -1.93993,-1.93993 -2.10159,-1.29329 0.48498,1.61661 1.29328,1.77828 -0.8083,0.8083 c 0,0 -0.8083,-0.32332 -1.29328,-0.96997 -0.485,-0.64664 -2.1016,-3.39488 -2.1016,-3.39488 l -0.96997,-2.26326 c 0,0 -0.32332,1.29329 -0.96997,0.96996 -0.64665,-0.32332 -1.29329,-1.45494 -1.29329,-1.45494 l 1.77827,-1.93994 -1.45495,-1.45495 0,-5.0115 -0.8083,0 -0.8083,3.39488 -1.13164,0.485 -0.96996,-3.71822 -0.64665,-3.71821 -0.80831,-0.48498 0.32333,5.65815 0,1.13162 -1.45496,-1.29328 -3.55654,-5.98147 -2.1016,-0.48498 -0.64664,-3.71821 -1.61661,-2.9099 -1.61662,-1.13164 0,-2.26325 2.1016,-1.29329 -0.48498,-0.32332 -2.58658,0.64664 -3.39489,-2.42491 -2.58658,-2.90991 -4.84983,-2.58658 -4.04154,-2.58658 1.2933,-3.23322 0,-1.61661 -1.77828,1.61661 -2.9099,1.13163 -3.71821,-1.13163 -5.65815,-2.42491 -5.49647,0 -0.64664,0.48498 -6.46645,-3.87988 -2.1016,-0.32332 -2.74824,-5.8198 -3.55655,0.32332 -3.55655,1.45495 0.48499,4.52652 1.13162,-2.9099 0.96998,0.32332 -1.45496,4.36485 3.23322,-2.74824 0.64665,1.61661 -3.87987,4.36485 -1.29329,-0.32332 -0.48498,-1.93994 -1.29329,-0.8083 -1.29329,1.13163 -2.74824,-1.77827 -3.07157,2.1016 -1.77826,2.10159 -3.39489,2.1016 -4.68818,-0.16167 -0.48498,-2.10159 3.7182,-0.64665 0,-1.29328 -2.26326,-0.64666 0.96998,-2.42491 2.26325,-3.87987 0,-1.77827 0.16166,-0.80831 4.36486,-2.26326 0.96996,1.29329 2.74825,0 -1.29329,-2.58657 -3.71822,-0.32333 -5.01149,2.74824 -2.42492,3.39488 -1.77827,2.58659 -1.13163,2.26326 -4.20319,1.45494 -3.07157,2.58658 -0.323321,1.61662 2.263257,0.96997 0.808313,2.10158 -2.748249,3.23323 -6.466439,4.2032 -7.759747,4.20319 -2.101597,1.13162 -5.334818,1.13164 -5.334826,2.26325 1.778275,1.29329 -1.454954,1.45495 -0.484982,1.13163 -2.748238,-0.96997 -3.23322,0.16166 -0.808312,2.26326 -0.969963,0 0.323321,-2.42492 -3.556551,1.2933 -2.909899,0.96996 -3.394886,-1.29329 -2.909901,1.93993 -3.233224,0 -2.101597,1.2933 -1.616612,0.8083 -2.101595,-0.32332 -2.58658,-1.13163 -2.263257,0.64665 -0.969967,0.96996 -1.616613,-1.13162 0,-1.93994 3.071564,-1.29329 6.304787,0.64665 4.364853,-1.61662 2.101596,-2.10159 2.909902,-0.64665 1.778273,-0.80831 2.748241,0.16166 1.616612,1.2933 0.969963,-0.32332 2.263257,-2.74824 3.07157,-0.96998 3.39488,-0.64664 1.293294,-0.32332 0.646642,0.48498 0.808312,0 1.293284,-3.71821 4.041533,-1.45494 1.939936,-3.71821 2.263259,-4.52652 1.616615,-1.45495 0.323321,-2.58658 -1.616615,1.29329 -3.394893,0.64665 -0.646642,-2.42492 -1.293284,-0.32332 -0.969973,0.96996 -0.16166,2.90991 -1.454955,-0.16167 -1.454944,-5.8198 -1.293294,1.29328 -1.131624,-0.48498 -0.32332,-1.93993 -4.041533,0.16166 -2.101596,1.13163 -2.586578,-0.32332 1.454944,-1.45495 0.484981,-2.58658 -0.646641,-1.93994 1.454954,-0.96996 1.293284,-0.16166 -0.646642,-1.77828 0,-4.36485 -0.969963,-0.96997 -0.808312,1.45495 -6.143123,0 -1.454951,-1.29329 -0.646645,-3.87986 -2.101596,-3.55656 0,-0.96996 2.101596,-0.80831 0.161661,-2.1016 1.131628,-1.13162 -0.808305,-0.48498 -1.29329,0.48498 -1.131628,-2.74824 0.969967,-5.01151 4.526514,-3.23321 2.586575,-1.61662 1.939936,-3.7182 2.748249,-1.2933 2.586578,1.13164 0.323321,2.42492 2.424917,-0.32334 3.23322,-2.42491 1.616615,0.64665 0.969962,0.64664 1.616615,0 2.263259,-1.29329 0.808313,-4.36486 c 0,0 0.323321,-2.90989 0.969963,-3.39488 0.646642,-0.48498 0.969963,-0.96996 0.969963,-0.96996 l -1.131623,-1.93994 -2.58658,0.80831 -3.23323,0.8083 -1.939936,-0.48498 -3.556541,-1.77828 -5.011495,-0.16166 -3.556551,-3.7182 0.484981,-3.87987 0.646652,-2.42492 -2.101596,-1.77827 -1.939938,-3.71822 0.484983,-0.8083 6.789771,-0.48498 2.101596,0 0.969963,0.96996 0.646652,0 -0.16166,-1.61661 3.879862,-0.64664 2.586577,0.32332 1.454955,1.13163 -1.454955,2.1016 -0.484981,1.45494 2.748249,1.61662 5.011497,1.77827 1.778276,-0.96996 -2.263257,-4.36485 -0.969974,-3.23323 0.969974,-0.80831 -3.394891,-1.93993 -0.484983,-1.13164 0.484983,-1.6166 -0.808304,-3.87987 -2.909909,-4.68818 -2.424918,-4.20319 2.909909,-1.93994 3.233222,0 1.778276,0.64665 4.203192,-0.16166 3.718205,-3.55654 1.131633,-3.07157 3.718212,-2.42492 1.616604,0.96997 2.748239,-0.64665 3.718209,-2.1016 1.13164,-0.16166 0.96996,0.80832 4.52651,-0.16167 2.74824,-3.07156 1.13163,0 3.55655,2.42491 1.93993,2.1016 -0.48498,1.13163 0.64664,1.13163 1.61662,-1.61661 3.87987,0.32332 0.32332,3.7182 1.93994,1.45496 7.11309,0.64664 6.30479,4.20319 1.45494,-0.96996 5.17317,2.58658 2.10159,-0.64664 1.93994,-0.80832 4.84983,1.93994 4.36486,2.9099 z m -115.102797,28.93736 2.101596,5.33482 -0.161662,0.96997 -2.909902,-0.32333 -1.778273,-4.04153 -1.778273,-1.45494 -2.424919,0 -0.16166,-2.58659 1.778273,-2.42492 1.131629,2.42492 1.45495,1.45495 2.748241,0.64665 z m -2.58658,33.46387 3.718209,0.80831 3.718207,0.96996 0.808307,0.96998 -1.616612,3.7182 -3.071564,-0.16166 -3.394885,-3.55654 -0.161662,-2.74825 z m -20.692636,-14.06452 1.13163,2.58657 1.131628,1.61662 -1.131628,0.8083 -2.101597,-3.07156 0,-1.93993 0.969967,0 z m -13.7412027,73.07087 3.3948853,-2.26326 3.3948854,-0.96997 2.58658,0.32332 0.484983,1.61661 1.939935,0.48499 1.939934,-1.93993 -0.323322,-1.61661 2.748241,-0.64665 2.909902,2.58658 -1.131629,1.77827 -4.364852,1.13163 -2.748242,-0.48498 -3.718207,-1.13163 -4.3648533,1.45495 -1.616612,0.32332 -1.1316284,-0.64664 z m 48.9833487,-4.52651 1.616612,1.93993 2.101593,-1.61661 -1.454948,-1.2933 -2.263257,0.96998 z m 2.909902,3.07155 1.131624,-2.26325 2.101597,0.32332 -0.808303,1.93993 -2.424918,0 z m 23.602535,-1.93993 1.454954,1.77827 0.969974,-1.13162 -0.808313,-1.93994 -1.616615,1.29329 z m 8.72971,-12.44791 1.131633,5.8198 2.909899,0.80831 5.011495,-2.90991 4.364853,-2.58658 -1.6166,-2.42491 0.48498,-2.42492 -2.1016,1.29329 -2.909898,-0.80831 1.616605,-1.13162 1.939933,0.8083 3.87987,-1.77828 0.48499,-1.45494 -2.42492,-0.80831 0.8083,-1.93994 -2.74824,1.93994 -4.688172,3.55655 -4.849834,2.9099 -1.293294,1.13163 z m 42.35524,-19.88433 2.42492,-1.45495 -0.96997,-1.77828 -1.77827,0.96997 0.32332,2.26326 z"
+                    id="AK"
+                />
+            </g>
+        </svg>
+        <script type="text/javascript">
+        function canvasInit(){
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "rgb(0,0,255)";
+            ctx.fillRect(10, 10, 200, 200);
+            var c = 0, c2 = 0, c3 = 0;
+            setInterval(function(){
+                if ((c + c2 + c3) % 5 == 0){
+                    c = (c + 1) % 255;
+                }
+                else if ((c + c2 + c3) % 3 == 0){
+                    c2 = (c2 + 1) % 255;
+                }
+                else{
+                    c3 = (c3 + 1) % 255;
+                }
+                ctx.fillStyle = "rgb(" + c + "," + c2 + "," + c3 + ")";
+                ctx.fillRect(10, 10, 200, 200);
+            }, 1);
+        }
+        </script>
+        <canvas id="myCanvas" width="200px" height="200px" onclick="I'm canvas"></canvas>
+        </br>
+        <img src="./image/svg_vs_canvas.png" style="width:800px">
+    </div>
+
+    <div style="font-size: 58px; line-height: 140px;" id="Web_More" class="step" data-x="6000" data-y="4000" data-scale="2">
+        <style type="text/css">
+            #Web_More img {
+                position: absolute;
+                right: 70px;
+            }
+        </style>
+        <p>Web Storage <img src="./image/webstorage.jpg" height="100px; "></p>
+        <p>Web Workers <img src="./image/webworkers.jpg" height="100px;"></p>
+        <p>Web Socket  <img src="./image/websocket.png" height="100px;"></p>
+        <p>Offline Application <img src="./image/offline.jpg" height="100px;"></p>
+    </div>
+
+    <!--
+
+        And the last one shows full power and flexibility of impress.js.
+
+        You can not only position element in 3D, but also rotate it around any axis.
+        So this one here will get rotated by -40 degrees (40 degrees anticlockwise) around X axis and
+        10 degrees (clockwise) around Y axis.
+
+        You can of course rotate it around Z axis with `data-rotate-z` - it has exactly the same effect
+        as `data-rotate` (these two are basically aliases).
+
+    -->
+    <div id="Device_Support" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <img src="./image/viewports.jpg" width="800px">
+    </div>
+
+    <!--
+
+        So to make a summary of all the possible attributes used to position presentation steps, we have:
+
+        * `data-x`, `data-y`, `data-z` -- they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` -- they define the rotation of
+            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+            are exactly the same;
+        * `data-scale` -- defines the scale of step element; default value is 1
+
+        These values are used by impress.js in CSS transformation functions, so for more information consult
+        CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+
+    -->
+
+    <div class="step slide" data-x="2000" data-y="-1500">
+        <h1>ionic</h1>
+        <p>The beautiful, open source front-end framework for developing hybrid mobile apps with HTML5.</p>
+        </br>
+        <img src="./image/phones-frontpage@2x.png" height="510px"/>
+    </div>
+
+    <div class="step slide" data-x="8000" data-y="-1500">
+        <h1>HTML5小游戏</h1>
+        <p>《围住神经猫》《看你有多色》</p>
+        <img src="./image/sjm.jpg">
+        <img src="./image/yds.jpg" width="350px;" style="margin-left: 50px; ">
+        </br>
+    </div>
+
+    <div class="step slide" data-x="9000" data-y="-1500">
+        <q style="margin-top:0px;">HTML5 经历了10年的发展。</q>
+        <q>随着硬件的规格越来越高，网络越来越好。更富趣味和交互的web应用即将让现在的website成为过去式！</q>
+        <q>战斗即将开始！</q>
+
+        </br>
+    </div>
+
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<!--
+
+    Hint is not related to impress.js in any way.
+
+    But it can show you how to use impress.js features in creative way.
+
+    When the presentation step is shown (selected) its element gets the class of "active" and the body element
+    gets the class based on active step id `impress-on-ID` (where ID is the step's id)... It may not be
+    so clear because of all these "ids" in previous sentence, so for example when the first step (the one with
+    the id of `bored`) is active, body element gets a class of `impress-on-bored`.
+
+    This class is used by this hint below. Check CSS file to see how it's shown with delayed CSS animation when
+    the first step of presentation is visible for a couple of seconds.
+
+    ...
+
+    And when it comes to this piece of JavaScript below ... kids, don't do this at home ;)
+    It's just a quick and dirty workaround to get different hint text for touch devices.
+    In a real world it should be at least placed in separate JS file ... and the touch content should be
+    probably just hidden somewhere in HTML - not hard-coded in the script.
+
+    Just sayin' ;)
+
+-->
+<div class="hint">
+    <p>By mpr0xy</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) {
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<!--
+
+    Last, but not least.
+
+    To make all described above really work, you need to include impress.js in the page.
+    I strongly encourage to minify it first.
+
+    In here I just include full source of the script to make it more readable.
+
+    You also need to call a `impress().init()` function to initialize impress.js presentation.
+    And you should do it in the end of your document. Not only because it's a good practice, but also
+    because it should be done when the whole document is ready.
+    Of course you can wrap it in any kind of "DOM ready" event, but I was too lazy to do so ;)
+
+-->
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+
+<!--
+
+    The `impress()` function also gives you access to the API that controls the presentation.
+
+    Just store the result of the call:
+
+        var api = impress();
+
+    and you will get three functions you can call:
+
+        `api.init()` - initializes the presentation,
+        `api.next()` - moves to next step of the presentation,
+        `api.prev()` - moves to previous step of the presentation,
+        `api.goto( idx | id | element, [duration] )` - moves the presentation to the step given by its index number
+                id or the DOM element; second parameter can be used to define duration of the transition in ms,
+                but it's optional - if not provided default transition duration for the presentation will be used.
+
+    You can also simply call `impress()` again to get the API, so `impress().next()` is also allowed.
+    Don't worry, it wont initialize the presentation again.
+
+    For some example uses of this API check the last part of the source of impress.js where the API
+    is used in event handlers.
+
+-->
+
+</body>
+</html>
+
+<!--
+
+    Now you know more or less everything you need to build your first impress.js presentation, but before
+    you start...
+
+    Oh, you've already cloned the code from GitHub?
+
+    You have it open in text editor?
+
+    Stop right there!
+
+    That's not how you create awesome presentations. This is only a code. Implementation of the idea that
+    first needs to grow in your mind.
+
+    So if you want to build great presentation take a pencil and piece of paper. And turn off the computer.
+
+    Sketch, draw and write. Brainstorm your ideas on a paper. Try to build a mind-map of what you'd like
+    to present. It will get you closer and closer to the layout you'll build later with impress.js.
+
+    Get back to the code only when you have your presentation ready on a paper. It doesn't make sense to do
+    it earlier, because you'll only waste your time fighting with positioning of useless points.
+
+    If you think I'm crazy, please put your hands on a book called "Presentation Zen". It's all about
+    creating awesome and engaging presentations.
+
+    Think about it. 'Cause impress.js may not help you, if you have nothing interesting to say.
+
+-->
+
+<!--
+
+    Are you still reading this?
+
+    For real?
+
+    I'm impressed! Feel free to let me know that you got that far (I'm @bartaz on Twitter), 'cause I'd like
+    to congratulate you personally :)
+
+    But you don't have to do it now. Take my advice and take some time off. Make yourself a cup of coffee, tea,
+    or anything you like to drink. And raise a glass for me ;)
+
+    Cheers!
+
+-->
+
