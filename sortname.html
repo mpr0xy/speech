@@ -1,0 +1,36 @@
+<html>
+<head>
+  <style type="text/css">
+  	#input {
+  		width: 400px;
+  		height: 600px;
+  	}
+  	#output {
+  		width: 400px;
+  		height: 600px;
+  	}
+  </style>
+</head>
+<body>	
+  <div>
+  	<textarea id="input" placeholder="输入需要排序的名字，一个名字一行"></textarea>
+  	<button id="action">排序</button>
+  	<textarea id="output"></textarea>
+  </div>
+  <script type="text/javascript" src="https://hotoo.github.io/pinyin/dist/bundle.js"></script>
+  <script type="text/javascript" src="http://ali.bczcdn.com/pack/js/jquery-2.1.3.min.js"></script>
+  <script type="text/javascript">
+  	$("#action").on("click", function() {
+  		var list = $("#input").val()
+  		list = list.split('\n')
+  		if (!list[list.length - 1]) {
+  			list.splice(list.length - 1, 1)
+  		}
+  		list.sort(pinyin.compare)
+  		list = list.join('\n')
+  		console.log(list)
+  		$('#output').val(list)
+  	})
+  </script>
+</body>
+</html>
